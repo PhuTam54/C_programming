@@ -3,15 +3,11 @@
 #include <stdlib.h>
 #include <conio.h>
 
-struct history{
-	char status[20];
-};
 struct book{
 	int code;
 	char name[30];
 	char author[30];
-	struct history *status;
-
+	char status[20];
 };
 	struct book *b;
 	void showMenu();
@@ -24,8 +20,7 @@ struct book{
 
 int main(){
 	showMenu();
-	printf("\nATTENTION!!! You do not have a library yet.\nLet's make one <3 <3 <3 ;))");
-	printf("\n\nPress enter to continue.\n");
+	printf("\nATTENTION!!! You do not have a library yet.\nLet's make one <3 <3 <3 :))\n\nPress enter to continue.\n");
 	getch();
 	int n, choice;
 	printf("\nEnter number of the book in library: ");
@@ -37,7 +32,7 @@ int main(){
 		printf("\nEnter a choice (1-7) ");
 		scanf("%d", &choice);
 		if (choice == 1){
-			printf("\nEnter number of the book in library: ");
+			printf("\nATTENTION!!! Run program again to change number of the book in library ");
 			getBooks(b, n);
 		}
 		else if (choice == 2){
@@ -55,8 +50,11 @@ int main(){
 		else if (choice == 6){
 			updateBookStatus(b, n);
 		}
+		else if (choice == 7){
+			break;
+		}
 		else{
-			printf("Wrong input. Please try again.");
+			printf("\nWrong input!!! Please try again.\n");
 		}
 	}while(choice != 7);
 	free(b);
@@ -89,8 +87,7 @@ void getBooks(struct book *b, int n) //Initialize Library
 		gets((b+i)->author);
 		printf("Enter status for the book %d: ", i+1);
 		fflush(stdin);
-		gets((b+i)->status->status);
-		
+		gets((b+i)->status);	
 	}
 	printf("\nSuccesfully enter library!!!");
 	printf("\nPress enter to continue.\n");
@@ -103,7 +100,7 @@ void showBook(int i) //Show a book
 	printf("\nThe book's name: %s ", (b+i)->name);
 	printf("\nThe book's code: %d", (b+i)->code);
 	printf("\nThe book's author name : %s", (b+i)->author);
-	printf("\nThe book's status: %s\n", (b+i)->status->status);
+	printf("\nThe book's status: %s\n", (b+i)->status);
 }
 
 void showBooks(struct book *b, int n) //Allow staff to view all books in the library (code, name, author, borrowed or not)
@@ -155,7 +152,7 @@ void viewDetails(struct book *b, int n) //Allow staff to view book details inclu
 	gets(nameToFind);
 	for (int i = 0; i < n; i ++){
 		if(strcmp((b+i)->name, nameToFind) == 0){
-			printf("\nFounded.");
+			printf("\nThis is %s informatin: ", nameToFind);
 			showBook(i);
 		}
 	}
@@ -170,15 +167,19 @@ void updateBookStatus(struct book *b, int n) //Allow staff to update the book st
 	printf("\nEnter the name of the book that you want to change its status: ");
 	fflush(stdin);
 	gets(nameToFind);
-	printf("\nWhat is its status? ");
-	fflush(stdin);
-	gets(newStatus);
 	for (int i = 0; i < n; i ++){
-		if(strcmp((b+i)->name, newStatus) == 0){
+		if(strcmp((b+i)->name, nameToFind) == 0){
+			printf("\nFounded.");
 			showBook(i);
-			strcpy((b+i)->status->status, newStatus);	
-	}
-	printf("Successfully update the book status!!!");
+			printf("\nWhat is its status now? ");
+			fflush(stdin);
+			gets(newStatus);
+			strcpy((b+i)->status, newStatus);
+		}
+		else{
+			continue;
+		}	
+	printf("\nSuccessfully update the book status!!!");
 	printf("\nPress enter to continue.\n");
 	getch();
 	}
