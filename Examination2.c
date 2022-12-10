@@ -10,14 +10,11 @@ int main()
 	printf("Enter number of year: \n");
 	scanf("%f", &numberOfYear);
 	
-	interest = capitalSum * rateOfInterstInPercent * numberOfYear / 100;
-	printf("\n%7s \t %20s \t %25s", "Year", "Interest", "Sum");
-	printf("\n");
-	//capitalSum = in
 	for (int i = 1; i <= numberOfYear; i ++){
+		printf("\n%7s \t %20s \t %28s", "Year", "Interest", "Sum");
+		interest = capitalSum * rateOfInterstInPercent / 100;
 		capitalSum += interest;
-		interest = capitalSum * rateOfInterstInPercent * numberOfYear / 100;
-		printf("\n   %d% \t\t\t     %.2f \t\t\t  %.2f", i, interest, capitalSum);
+		printf("\n   %d% \t\t\t     %.6f \t\t\t  %.6f\n", i, interest, capitalSum);
 	}
 	return 0;
 }
